@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="app.js" defer="defer"></script>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <h1 style="color: white">CRUD</h1>
+    </nav>
+    <div class="container" data-bind="load: loadData()">
+        <div class="container">
+            <form>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Name</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your name"
+                        data-bind="value: person_name, hasfocus: person_name_focus()">
+                    <small id="emailHelp" class="form-text text-muted">Prro.</small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Age</label>
+                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your age" data-bind="value: person_age">
+                </div>
+                <br>
+                <button class="btn btn-success" data-bind="click: createPerson">Create</button>
+            </form>
+        </div>
+        <br>
+        <table class="table" data-bind="visible: people().length > 0" class="students">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Update</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: people">
+                <tr>
+                    <td>
+                        <span data-bind="text: name, click: nameUpdating, visible: !nameUpdate()"></span>
+                        <input class="form-control" type="text" class="name" data-bind="value: name, visible: nameUpdate, hasfocus: nameUpdate">
+                    </td>
+                    <td>
+                        <span data-bind="text: age, click: ageUpdating, visible: !ageUpdate()"></span>
+                        <input class="form-control" type="text" class="age" data-bind="value: age, visible: ageUpdate, hasfocus: ageUpdate">
+                    </td>
+                    <td align="center" data-bind="click: $root.updatePerson">
+                        <a href="#" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                    <td align="center" data-bind="click: $root.removePerson">
+                        <a href="#">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>        
+        <div class="modal" tabindex="-1" role="dialog" id="exampleModal">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Actulizar alumno</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p><form>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Name</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter your new name"
+                                    data-bind="value: person_name, hasfocus: person_name_focus()">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Age</label>
+                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter your new age" data-bind="value: person_age">
+                            </div>                            
+                        </form></p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    </div>
+</body>
+
+</html>
